@@ -1,0 +1,137 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function SoccerTeamSite() {
+  const [page, setPage] = useState("home");
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "team", label: "Team" },
+    { id: "fixtures", label: "Fixtures & Results" },
+    { id: "gallery", label: "Gallery" },
+    { id: "support", label: "Support Us" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-800">
+      {/* Header */}
+      <header className="bg-green-700 text-white shadow p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Beverley Hills Soccer Team</h1>
+        <nav className="space-x-4">
+          {navItems.map((item) => (
+            <Button
+              key={item.id}
+              variant={page === item.id ? "default" : "secondary"}
+              onClick={() => setPage(item.id)}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </nav>
+      </header>
+
+      {/* Main Content */}
+      <main className="p-6 max-w-5xl mx-auto">
+        {page === "home" && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Welcome to Our Team</h2>
+            <p>
+              We are the Beverley Hills School Soccer Team! Follow our journey
+              here with updates, fixtures, results, and more.
+            </p>
+          </motion.div>
+        )}
+
+        {page === "team" && (
+          <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Our Players</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {["John Doe", "Jane Smith", "Michael Lee", "Ava Brown"].map(
+                (player, i) => (
+                  <Card key={i} className="rounded-2xl shadow-md">
+                    <CardContent className="p-4 text-center">
+                      <div className="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-2" />
+                      <p className="font-medium">{player}</p>
+                      <p className="text-sm text-gray-500">Position</p>
+                    </CardContent>
+                  </Card>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {page === "fixtures" && (
+          <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Fixtures & Results</h2>
+            <ul className="space-y-2">
+              <li className="p-3 bg-white rounded-lg shadow">
+                Sat 6 Sept – vs Greenfield School – Won 3:1
+              </li>
+              <li className="p-3 bg-white rounded-lg shadow">
+                Wed 10 Sept – vs Oceanview Academy – Upcoming
+              </li>
+            </ul>
+          </motion.div>
+        )}
+
+        {page === "gallery" && (
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Gallery</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <div
+                  key={n}
+                  className="w-full h-40 bg-gray-300 rounded-xl shadow"
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {page === "support" && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Support Us</h2>
+            <p>
+              Help our team grow! We welcome sponsorships, donations, and
+              community support to fund equipment, uniforms, and travel costs.
+            </p>
+            <Button className="mt-4">Become a Sponsor</Button>
+          </motion.div>
+        )}
+
+        {page === "contact" && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
+            <form className="space-y-4 max-w-md">
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="w-full p-2 border rounded-lg"
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="w-full p-2 border rounded-lg"
+              />
+              <textarea
+                placeholder="Your Message"
+                rows="4"
+                className="w-full p-2 border rounded-lg"
+              />
+              <Button type="submit">Send Message</Button>
+            </form>
+          </motion.div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-green-800 text-white text-center py-4 mt-6">
+        <p>&copy; 2025 Beverley Hills School Soccer Team</p>
+      </footer>
+    </div>
+  );
+}
